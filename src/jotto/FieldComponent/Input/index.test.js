@@ -3,6 +3,13 @@ import { shallow, ShallowWrapper } from "enzyme";
 import Input from ".";
 import { findByTestAttr } from "../../../test/testUtils";
 
+const mockSetCurrentGuess = jest.fn();
+
+jest.mock("react", () => ({
+  ...jest.requireActual("react"),
+  useState: (initialState) => [initialState, mockSetCurrentGuess],
+}));
+
 /**
  * Setup function for Input Component
  * @returns {ShallowWrapper}
@@ -19,9 +26,6 @@ test("Input renders without errors", () => {
 
 describe("State controlled input field", () => {
   test("state updates with value of input box upon change", () => {
-    const mockSetCurrentGuess = jest.fn();
-    React.useState = jest.fn(() => ["", mockSetCurrentGuess]);
-
     const wrapper = setup();
     const inputBox = findByTestAttr(wrapper, "input-box");
     const mockEvent = { target: { value: "train" } };
