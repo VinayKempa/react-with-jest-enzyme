@@ -4,7 +4,19 @@ const GuessedWords = ({ guessedWords }) => {
   let content = "";
   if (guessedWords.length === 0) {
     content = (
-      <span data-test="guess-instructions">Try to guess the secret word!</span>
+      <React.Fragment>
+        <span data-test="guess-instructions">
+          Try to guess the secret word!
+        </span>
+        <table className="table table-sm">
+          <thead>
+            <tr>
+              <th>Guess</th>
+              <th>Matching letters</th>
+            </tr>
+          </thead>
+        </table>
+      </React.Fragment>
     );
   } else {
     const guessedWordsRows = guessedWords.map((word, index) => (
