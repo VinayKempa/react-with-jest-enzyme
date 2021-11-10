@@ -1,9 +1,14 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { mount } from "enzyme";
 import { findByTestAttr } from "../test/testUtils";
 import Jotto from ".";
 
-const setup = () => shallow(<Jotto />);
+// activate global mock to make sure getSecretWord doesn't make network call
+
+jest.mock("./action");
+import { getSecretWord as mockGetSecretWord } from "./action";
+
+const setup = () => mount(<Jotto />);
 
 describe("Jotto application", () => {
   let wrapper;
@@ -13,5 +18,22 @@ describe("Jotto application", () => {
   test("renders without error", () => {
     const appComponent = findByTestAttr(wrapper, "app-component");
     expect(appComponent).toHaveLength(1);
+  });
+});
+
+describe("getSecretWord", () => {
+  beforeEach(() => {
+    // Clear the mock tests from previous tests
+    mockGetSecretWord.mockClear();
+  });
+  test("getSecretWord retrived on app mount", () => {
+    const wrapper = setup();
+    expect(mockGetSecretWord).toHaveBeenCalledTimes(1);
+  });
+  test("getSecretWord not retrived on app update", () => {
+    const wrapper = setup();
+    mockGetSecretWord.mockClear();
+    wrapper.setProps();
+    expect(mockGetSecretWord).toHaveBeenCalledTimes(0);
   });
 });
