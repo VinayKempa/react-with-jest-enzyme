@@ -8,14 +8,6 @@ const GuessedWords = ({ guessedWords }) => {
         <span data-test="guess-instructions">
           Try to guess the secret word!
         </span>
-        <table className="table table-sm">
-          <thead>
-            <tr>
-              <th>Guess</th>
-              <th>Matching letters</th>
-            </tr>
-          </thead>
-        </table>
       </React.Fragment>
     );
   } else {

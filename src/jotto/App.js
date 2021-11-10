@@ -11,7 +11,7 @@ const App = () => {
   return (
     <div className="container" data-test="app-component">
       <h1>Jotto</h1>
-      <Congrats success={true} />
+      <Congrats success={false} />
       <Input success={false} secretWord="party" />
       <GuessedWords guessedWords={[]} />
     </div>
