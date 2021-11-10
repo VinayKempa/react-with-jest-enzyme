@@ -1,3 +1,5 @@
+import { CORRECT_GUESS } from "../../action/types";
+
 /**
  * @function successReducer
  * @param {boolean} state
@@ -5,8 +7,16 @@
  *
  * @returns {boolean}
  */
-const successReducer = (state, action) => {
-  return null;
+const successReducer = (state = false, action) => {
+  const { type } = action;
+  switch (type) {
+    case CORRECT_GUESS: {
+      return true;
+    }
+    default: {
+      return state;
+    }
+  }
 };
 
 export default successReducer;
